@@ -66,6 +66,7 @@ const Builder = () => {
         .single();
 
       if (error) throw error;
+      if (!data) throw new Error('Project not found');
 
       const content = typeof data.content === 'string' ? JSON.parse(data.content) : data.content;
       setProject({
@@ -224,7 +225,19 @@ Generated on: ${new Date().toLocaleDateString()}
   }
 
   return (
-    <div className="h-screen bg-background flex flex-col">
+    <div className="h-screen relative">
+      {/* Spline Background for Builder */}
+      <div className="fixed inset-0 z-0">
+        <iframe 
+          src='https://my.spline.design/orbittriangle-3S6GOic3EjNFF8CrhyvHizYQ/' 
+          frameBorder='0' 
+          width='100%' 
+          height='100%'
+          className="pointer-events-none opacity-20"
+        />
+      </div>
+      
+      <div className="relative z-10 h-screen bg-background/95 backdrop-blur-sm flex flex-col">
       {/* Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-sm px-4 py-2">
         <div className="flex items-center justify-between">

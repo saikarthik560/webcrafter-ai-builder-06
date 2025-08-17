@@ -80,6 +80,7 @@ const CreateProject = () => {
         .single();
 
       if (dbError) throw dbError;
+      if (!project) throw new Error('Failed to create project');
 
       toast({
         title: "Project Created!",
@@ -102,11 +103,24 @@ const CreateProject = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
-      <ProjectCreationWizard 
-        onCreateProject={handleCreateProject}
-        isCreating={isCreating}
-      />
+    <div className="min-h-screen relative">
+      {/* Spline Background */}
+      <div className="fixed inset-0 z-0">
+        <iframe 
+          src='https://my.spline.design/orbittriangle-3S6GOic3EjNFF8CrhyvHizYQ/' 
+          frameBorder='0' 
+          width='100%' 
+          height='100%'
+          className="pointer-events-none opacity-30"
+        />
+      </div>
+      
+      <div className="relative z-10 min-h-screen bg-background/90 backdrop-blur-sm">
+        <ProjectCreationWizard 
+          onCreateProject={handleCreateProject}
+          isCreating={isCreating}
+        />
+      </div>
     </div>
   );
 };

@@ -6,8 +6,6 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const OPENROUTER_API_KEY = Deno.env.get('OPENROUTER_API_KEY');
-
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -143,45 +141,86 @@ serve(async (req) => {
       themeColors = colorThemeMapping[colorTheme as keyof typeof colorThemeMapping] || colorThemeMapping.blue;
     }
 
-    const systemPrompt = `You are an expert web developer who creates complete, production-ready websites based on user requirements.
+    const systemPrompt = `You are an expert full-stack developer who creates complete, production-ready applications. You MUST create fully functional, deployable projects that work exactly like professional development platforms.
 
 Project Requirements:
 - Title: ${title}
 - Description: ${description}
-- Output Format: ${formatInstructions[framework as keyof typeof formatInstructions] || 'HTML/CSS/JS'}
-- Automatically Selected Framework: ${framework} (chosen based on project requirements)
+- Framework: ${framework} (${formatInstructions[framework as keyof typeof formatInstructions] || 'HTML/CSS/JS'})
 - Color Theme: ${JSON.stringify(themeColors)}
 - Template Base: ${template || 'Custom'}
 - Animations: ${animations.join(', ') || 'None'}
 - Special Requests: ${specialRequests || 'None'}
 
-Instructions:
-1. Create a complete, functional website that matches the description
-2. Use the specified output format and framework
-3. Implement the color theme throughout the design
-4. Include the requested animations and effects
-5. Follow modern web development best practices
-6. Make it responsive and accessible
-7. Include proper meta tags for SEO
-8. Add comments explaining key sections
+CRITICAL REQUIREMENTS - You MUST implement ALL of these:
 
-For file structure, provide:
-- Main files (index.html, main.css, main.js for vanilla OR component files for frameworks)
-- Supporting files as needed
-- Clear, semantic code structure
+1. **COMPLETE PROJECT STRUCTURE**: Create a fully working project with all necessary files including:
+   - Complete source code files with proper file organization
+   - Package.json with all required dependencies (if framework project)
+   - Configuration files (tailwind.config, vite.config, etc.)
+   - README.md with setup instructions
+   - .gitignore file
+   - All supporting files needed for deployment
 
-Respond in this JSON format:
+2. **PRODUCTION-READY CODE**: 
+   - Write clean, maintainable, well-commented code
+   - Use modern best practices and patterns
+   - Include proper error handling
+   - Implement responsive design that works on all devices
+   - Add proper accessibility features (ARIA labels, semantic HTML)
+   - Include loading states and user feedback
+
+3. **REAL FUNCTIONALITY**: No mockups or placeholders:
+   - All buttons and forms must work
+   - Include proper state management
+   - Add actual animations and interactions
+   - Implement proper routing (if applicable)
+   - Include real API integration examples where relevant
+
+4. **COMPREHENSIVE FEATURES**:
+   - Multiple pages/components as needed
+   - Navigation system
+   - Contact forms with validation
+   - Interactive elements and animations
+   - Search functionality (if applicable)
+   - User interface components
+   - Data handling and storage examples
+
+5. **MODERN DEVELOPMENT STANDARDS**:
+   - TypeScript for type safety (when applicable)
+   - Component-based architecture
+   - Proper CSS organization with Tailwind
+   - Performance optimizations
+   - SEO best practices with proper meta tags
+   - Mobile-first responsive design
+
+6. **DEPLOYMENT READY**:
+   - Include build scripts and configurations
+   - Optimize for production deployment
+   - Include environment configuration examples
+   - Add deployment instructions in README
+
+Respond in this exact JSON format:
 {
   "files": {
-    "filename.ext": "file content",
-    "another-file.ext": "content"
+    "filename.ext": "complete file content with no truncation",
+    "folder/filename.ext": "complete file content"
   },
-  "structure": "Brief explanation of the project structure",
-  "features": ["List of implemented features"],
-  "instructions": "Setup/deployment instructions"
+  "structure": "Detailed explanation of project architecture and file organization",
+  "features": ["Comprehensive list of all implemented features and functionality"],
+  "instructions": "Complete setup, development, and deployment instructions including all commands needed",
+  "framework": "${framework}",
+  "dependencies": ["List of all required dependencies and their purposes"]
 }
 
-Generate a complete, professional website that exceeds expectations. Make it production-ready with proper file structure, mobile-responsive design, and modern best practices.`;
+IMPORTANT: 
+- Do NOT truncate any file content - provide complete, working files
+- Include ALL necessary files for a complete project
+- Make it production-ready and fully functional
+- Ensure all code follows modern best practices
+- Create a project that can be immediately deployed and used
+
+Generate a comprehensive, professional application that exceeds expectations and provides real value.`;
 
     let requestBody: any;
     

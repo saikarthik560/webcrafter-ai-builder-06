@@ -67,16 +67,17 @@ const Dashboard = () => {
           name: newProjectName,
           description: "",
           user_id: user.id,
-          content: JSON.stringify({
-            html: "<div>Welcome to your new project!</div>",
-            css: "body { font-family: Arial, sans-serif; }",
-            js: "// Your JavaScript code here"
-          })
+          content: {
+            "index.html": "<div>Welcome to your new project!</div>",
+            "styles.css": "body { font-family: Arial, sans-serif; }",
+            "script.js": "// Your JavaScript code here"
+          }
         })
         .select()
         .single();
 
       if (error) throw error;
+      if (!data) throw new Error('Failed to create project');
 
       setProjects([data, ...projects]);
       setNewProjectName("");
@@ -110,9 +111,21 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm">
+    <div className="min-h-screen relative">
+      {/* Spline Background for Other Pages */}
+      <div className="fixed inset-0 z-0">
+        <iframe 
+          src='https://my.spline.design/orbittriangle-3S6GOic3EjNFF8CrhyvHizYQ/' 
+          frameBorder='0' 
+          width='100%' 
+          height='100%'
+          className="pointer-events-none opacity-30"
+        />
+      </div>
+      
+      <div className="relative z-10 min-h-screen bg-background/90 backdrop-blur-sm">
+        {/* Header */}
+        <header className="border-b border-border bg-card/50 backdrop-blur-sm">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
@@ -204,6 +217,7 @@ const Dashboard = () => {
           </div>
         )}
       </main>
+      </div>
     </div>
   );
 };
