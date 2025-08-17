@@ -103,23 +103,26 @@ const CreateProject = () => {
   };
 
   return (
-    <div className="min-h-screen relative">
-      {/* Spline Background */}
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Enhanced Spline Background - More Visible */}
       <div className="fixed inset-0 z-0">
         <iframe 
           src='https://my.spline.design/orbittriangle-3S6GOic3EjNFF8CrhyvHizYQ/' 
           frameBorder='0' 
           width='100%' 
           height='100%'
-          className="pointer-events-none opacity-30"
+          className="pointer-events-none scale-105 opacity-60"
         />
       </div>
       
-      <div className="relative z-10 min-h-screen bg-background/90 backdrop-blur-sm">
-        <ProjectCreationWizard 
-          onCreateProject={handleCreateProject}
-          isCreating={isCreating}
-        />
+      {/* Enhanced Glassmorphism Container */}
+      <div className="relative z-10 min-h-screen bg-gradient-to-br from-background/25 via-background/15 to-background/25 backdrop-blur-xl">
+        <div className="bg-gradient-to-br from-white/5 via-transparent to-white/5 min-h-screen">
+          <ProjectCreationWizard 
+            onCreateProject={handleCreateProject}
+            isCreating={isCreating}
+          />
+        </div>
       </div>
     </div>
   );

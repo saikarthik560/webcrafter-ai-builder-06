@@ -111,21 +111,21 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen relative">
-      {/* Spline Background for Other Pages */}
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Enhanced Spline Background - More Visible */}
       <div className="fixed inset-0 z-0">
         <iframe 
           src='https://my.spline.design/orbittriangle-3S6GOic3EjNFF8CrhyvHizYQ/' 
           frameBorder='0' 
           width='100%' 
           height='100%'
-          className="pointer-events-none opacity-30"
+          className="pointer-events-none scale-105 opacity-60"
         />
       </div>
       
-      <div className="relative z-10 min-h-screen bg-background/90 backdrop-blur-sm">
-        {/* Header */}
-        <header className="border-b border-border bg-card/50 backdrop-blur-sm">
+      <div className="relative z-10 min-h-screen">
+        {/* Enhanced Glassmorphism Header */}
+        <header className="bg-background/15 backdrop-blur-xl border-b border-white/20 shadow-lg">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
@@ -151,9 +151,10 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-      </header>
+        </header>
 
-      <main className="container mx-auto px-6 py-8">
+        {/* Enhanced Glassmorphism Main Content */}
+        <main className="container mx-auto px-6 py-8 bg-gradient-to-br from-background/25 via-background/15 to-background/25 backdrop-blur-lg min-h-screen">
         {/* Dashboard Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -170,9 +171,9 @@ const Dashboard = () => {
         </div>
 
 
-        {/* Projects Grid */}
+        {/* Enhanced Glassmorphism Projects Grid */}
         {projects.length === 0 ? (
-          <Card className="text-center py-12">
+          <Card className="text-center py-12 bg-background/30 backdrop-blur-lg border-white/20 shadow-xl">
             <CardContent>
               <FileText className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">No projects yet</h3>
@@ -186,7 +187,7 @@ const Dashboard = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((project) => (
-              <Card key={project.id} className="hover:shadow-lg transition-shadow cursor-pointer">
+              <Card key={project.id} className="hover:shadow-2xl transition-all duration-300 cursor-pointer bg-background/30 backdrop-blur-lg border-white/20 hover:bg-background/40 hover:scale-105">
                 <CardHeader>
                   <CardTitle className="truncate">{project.name}</CardTitle>
                   <CardDescription>

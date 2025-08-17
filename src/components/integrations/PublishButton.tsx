@@ -205,9 +205,9 @@ const PublishButton = ({ projectContent, projectName }: PublishButtonProps) => {
           </TabsContent>
 
           <TabsContent value="github" className="space-y-6">
-            <GitHubIntegration 
-              projectContent={projectContent}
+            <GitHubIntegration
               projectName={projectName}
+              projectFiles={projectContent}
             />
           </TabsContent>
         </Tabs>
