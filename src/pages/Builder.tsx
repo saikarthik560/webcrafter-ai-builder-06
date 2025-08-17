@@ -388,6 +388,7 @@ Generated on: ${new Date().toLocaleDateString()}
           )}
         </ResizablePanelGroup>
       </div>
+      </div>
     </div>
   );
 };

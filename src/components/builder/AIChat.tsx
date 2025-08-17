@@ -51,6 +51,29 @@ const AIChat = ({ projectId, onCodeUpdate, projectContent }: AIChatProps) => {
   const sendMessage = async () => {
     if (!inputMessage.trim() || isLoading) return;
 
+    // Get API keys from localStorage
+    const savedKeys = localStorage.getItem('webcrafter_api_keys');
+    const apiKeys = savedKeys ? JSON.parse(savedKeys) : {};
+
+    // Check if any API key is configured
+    const hasValidKey = Object.values(apiKeys).some((key: any) => key && key.trim() !== "");
+    
+    if (!hasValidKey) {
+      const errorMessage: Message = {
+        id: Date.now().toString(),
+        type: 'ai',
+        content: "⚠️ Please configure your API keys in Settings to enable the AI assistant. Go to Settings → API Configuration to add your OpenAI, OpenRouter, DeepSeek, or Anthropic API key.",
+        timestamp: new Date(),
+      };
+      setMessages(prev => [...prev, errorMessage]);
+      toast({
+        title: "API Keys Required",
+        description: "Please configure your API keys in Settings first.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     const userMessage: Message = {
       id: Date.now().toString(),
       type: 'user',
@@ -69,7 +92,8 @@ const AIChat = ({ projectId, onCodeUpdate, projectContent }: AIChatProps) => {
           message: inputMessage,
           projectContent,
           projectId,
-          conversationHistory: messages.slice(-5), // Last 5 messages for context
+          conversationHistory: messages.slice(-5),
+          apiKeys
         }
       });
 
