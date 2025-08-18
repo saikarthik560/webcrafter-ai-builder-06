@@ -51,9 +51,11 @@ const AIChat = ({ projectId, onCodeUpdate, projectContent }: AIChatProps) => {
   const sendMessage = async () => {
     if (!inputMessage.trim() || isLoading) return;
 
-    // Get API keys from localStorage
+    // Get API keys and selected models from localStorage
     const savedKeys = localStorage.getItem('webcrafter_api_keys');
+    const savedModels = localStorage.getItem('webcrafter_selected_models');
     const apiKeys = savedKeys ? JSON.parse(savedKeys) : {};
+    const selectedModels = savedModels ? JSON.parse(savedModels) : {};
 
     // Check if any API key is configured
     const hasValidKey = Object.values(apiKeys).some((key: any) => key && key.trim() !== "");
@@ -93,7 +95,10 @@ const AIChat = ({ projectId, onCodeUpdate, projectContent }: AIChatProps) => {
           projectContent,
           projectId,
           conversationHistory: messages.slice(-5),
-          apiKeys
+          apiKeys: {
+            ...apiKeys,
+            selectedModels
+          }
         }
       });
 

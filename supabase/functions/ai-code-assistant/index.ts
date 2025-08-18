@@ -1,4 +1,3 @@
-/// <reference types="https://deno.land/x/xhr@0.1.0/mod.ts" />
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
@@ -16,12 +15,12 @@ serve(async (req) => {
     
     let apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
     let apiKey = apiKeys?.openrouter || '';
-    let model = 'meta-llama/llama-3.2-3b-instruct:free';
+    let model = apiKeys?.selectedModels?.openrouter || 'meta-llama/llama-3.2-3b-instruct:free';
     
     if (!apiKey && apiKeys?.openai) {
       apiUrl = 'https://api.openai.com/v1/chat/completions';
       apiKey = apiKeys.openai;
-      model = 'gpt-4o-mini';
+      model = apiKeys?.selectedModels?.openai || 'gpt-4o-mini';
     }
     
     if (!apiKey) {
@@ -35,7 +34,7 @@ serve(async (req) => {
       });
     }
 
-    const context = `You are an advanced AI web app builder like Lovable.dev. Generate complete, functional web applications with React, modern UI, and comprehensive features. Always provide COMPLETE file contents, never truncated. Enhance basic requests into full-featured applications.
+    const context = `You are an advanced AI web app builder like Lovable.dev. Generate complete, functional web applications with React, modern UI, and comprehensive features. Always provide COMPLETE file contents, never truncated. When user provides code snippets, integrate them properly into the source code. Enhance basic requests into full-featured applications.
 
 Current project files: ${JSON.stringify(projectContent, null, 2)}
 User message: ${message}
