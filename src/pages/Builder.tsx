@@ -226,20 +226,20 @@ Generated on: ${new Date().toLocaleDateString()}
 
   return (
     <div className="h-screen relative overflow-hidden">
-      {/* Enhanced Spline Background for Builder - More Visible */}
+      {/* Enhanced Spline Background for Builder - 50/50 Visibility */}
       <div className="fixed inset-0 z-0">
         <iframe 
           src='https://my.spline.design/orbittriangle-3S6GOic3EjNFF8CrhyvHizYQ/' 
           frameBorder='0' 
           width='100%' 
           height='100%'
-          className="pointer-events-none scale-105 opacity-40"
+          className="pointer-events-none scale-110 opacity-60 brightness-110 contrast-110"
         />
       </div>
       
-      <div className="relative z-10 h-screen bg-gradient-to-br from-background/20 via-background/10 to-background/20 backdrop-blur-xl flex flex-col">
-      {/* Enhanced Glassmorphism Header */}
-      <header className="bg-background/15 backdrop-blur-xl border-b border-white/20 shadow-lg px-4 py-2">
+      <div className="relative z-10 h-screen bg-gradient-to-br from-background/30 via-background/20 to-background/30 backdrop-blur-lg flex flex-col">
+      {/* Enhanced Glassmorphism Header - 50/50 Visibility */}
+      <header className="bg-white/10 backdrop-blur-xl border-b border-white/30 shadow-2xl px-4 py-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <Button 
@@ -303,8 +303,8 @@ Generated on: ${new Date().toLocaleDateString()}
         </div>
       </header>
 
-      {/* Enhanced Glassmorphism Main Content */}
-      <div className="flex-1 overflow-hidden bg-gradient-to-br from-background/25 via-background/15 to-background/25 backdrop-blur-lg">
+      {/* Enhanced Glassmorphism Main Content - 50/50 Visibility */}
+      <div className="flex-1 overflow-hidden bg-gradient-to-br from-white/15 via-white/10 to-white/15 backdrop-blur-xl">
         <ResizablePanelGroup direction="horizontal">
           {/* AI Chat Panel */}
           {showChat && (
