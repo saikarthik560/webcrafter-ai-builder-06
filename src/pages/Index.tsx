@@ -19,7 +19,7 @@ const Index = () => {
       </div>
       
       {/* Enhanced Glassmorphism Content */}
-      <div className="relative z-10 min-h-screen">
+      <div className="relative z-10 min-h-screen bg-gradient-to-br from-background/30 via-background/20 to-background/30">
         {/* Glassmorphism Header */}
         <div className="bg-background/20 backdrop-blur-md border-b border-white/10">
           <Header />

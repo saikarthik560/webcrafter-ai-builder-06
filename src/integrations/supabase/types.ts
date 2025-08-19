@@ -63,6 +63,7 @@ export type Database = {
           github_token: string | null
           id: string
           preferences: Json | null
+          selected_models: Json | null
           updated_at: string
           user_id: string
         }
@@ -72,6 +73,7 @@ export type Database = {
           github_token?: string | null
           id?: string
           preferences?: Json | null
+          selected_models?: Json | null
           updated_at?: string
           user_id: string
         }
@@ -81,6 +83,7 @@ export type Database = {
           github_token?: string | null
           id?: string
           preferences?: Json | null
+          selected_models?: Json | null
           updated_at?: string
           user_id?: string
         }

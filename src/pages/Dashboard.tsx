@@ -154,7 +154,7 @@ const Dashboard = () => {
         </header>
 
         {/* Enhanced Glassmorphism Main Content */}
-        <main className="container mx-auto px-6 py-8 bg-gradient-to-br from-background/20 via-background/10 to-background/20 backdrop-blur-lg min-h-screen">
+        <main className="container mx-auto px-6 py-8 bg-gradient-to-br from-background/30 via-background/20 to-background/30 min-h-screen">
         {/* Dashboard Header */}
         <div className="flex items-center justify-between mb-8">
           <div>

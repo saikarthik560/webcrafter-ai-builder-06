@@ -116,7 +116,7 @@ const CreateProject = () => {
       </div>
       
       {/* Enhanced Glassmorphism Container */}
-      <div className="relative z-10 min-h-screen bg-gradient-to-br from-background/20 via-background/10 to-background/20 backdrop-blur-xl">
+      <div className="relative z-10 min-h-screen bg-gradient-to-br from-background/30 via-background/20 to-background/30">
         <div className="bg-gradient-to-br from-white/5 via-transparent to-white/5 min-h-screen">
           <ProjectCreationWizard 
             onCreateProject={handleCreateProject}

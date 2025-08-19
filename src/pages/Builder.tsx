@@ -237,7 +237,7 @@ Generated on: ${new Date().toLocaleDateString()}
         />
       </div>
       
-      <div className="relative z-10 h-screen bg-gradient-to-br from-background/20 via-background/10 to-background/20 backdrop-blur-lg flex flex-col">
+      <div className="relative z-10 h-screen bg-gradient-to-br from-background/30 via-background/20 to-background/30 flex flex-col">
       {/* Enhanced Glassmorphism Header - 50/50 Visibility */}
       <header className="bg-white/10 backdrop-blur-xl border-b border-white/30 shadow-2xl px-4 py-2">
         <div className="flex items-center justify-between">
