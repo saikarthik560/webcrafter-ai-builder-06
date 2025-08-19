@@ -21,6 +21,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import ApiKeyInput from "@/components/common/ApiKeyInput";
 
 interface ApiKeys {
   openai: string;
@@ -29,6 +30,13 @@ interface ApiKeys {
   anthropic: string;
   gemini: string;
   githubToken: string;
+}
+
+interface SelectedModels {
+  openai: string;
+  openrouter: string;
+  deepseek: string;
+  anthropic: string;
 }
 
 const Settings = () => {
@@ -42,6 +50,12 @@ const Settings = () => {
     gemini: '',
     githubToken: ''
   });
+  const [selectedModels, setSelectedModels] = useState<SelectedModels>({
+    openai: 'gpt-4o-mini',
+    openrouter: 'meta-llama/llama-3.2-3b-instruct:free',
+    deepseek: 'deepseek-chat',
+    anthropic: 'claude-3-5-haiku-20241022'
+  });
   const [showKeys, setShowKeys] = useState<{[key: string]: boolean}>({});
   const [isSaving, setIsSaving] = useState(false);
 
@@ -51,12 +65,23 @@ const Settings = () => {
 
   const loadApiKeys = () => {
     const savedKeys = localStorage.getItem('webcrafter_api_keys');
+    const savedModels = localStorage.getItem('webcrafter_selected_models');
+    
     if (savedKeys) {
       try {
         const parsed = JSON.parse(savedKeys);
         setApiKeys(prev => ({ ...prev, ...parsed }));
       } catch (error) {
         console.error('Error loading API keys:', error);
+      }
+    }
+    
+    if (savedModels) {
+      try {
+        const parsed = JSON.parse(savedModels);
+        setSelectedModels(prev => ({ ...prev, ...parsed }));
+      } catch (error) {
+        console.error('Error loading selected models:', error);
       }
     }
   };
@@ -66,6 +91,7 @@ const Settings = () => {
     try {
       // Save to localStorage for immediate use
       localStorage.setItem('webcrafter_api_keys', JSON.stringify(apiKeys));
+      localStorage.setItem('webcrafter_selected_models', JSON.stringify(selectedModels));
       
       // Also save to Supabase for persistence (if user is logged in)
       const { data: { user } } = await supabase.auth.getUser();
@@ -75,6 +101,7 @@ const Settings = () => {
           .upsert({
             user_id: user.id,
             api_keys: apiKeys as any,
+            selected_models: selectedModels as any,
             updated_at: new Date().toISOString()
           });
         
@@ -85,7 +112,7 @@ const Settings = () => {
 
       toast({
         title: "Settings Saved",
-        description: "Your API keys have been saved securely.",
+        description: "Your API keys and model preferences have been saved securely.",
       });
     } catch (error) {
       toast({
@@ -100,6 +127,10 @@ const Settings = () => {
 
   const handleKeyChange = (provider: keyof ApiKeys, value: string) => {
     setApiKeys(prev => ({ ...prev, [provider]: value }));
+  };
+
+  const handleModelChange = (provider: keyof SelectedModels, model: string) => {
+    setSelectedModels(prev => ({ ...prev, [provider]: model }));
   };
 
   const toggleShowKey = (provider: string) => {
@@ -162,7 +193,7 @@ const Settings = () => {
         />
       </div>
       
-      <div className="relative z-10 min-h-screen bg-gradient-to-br from-background/25 via-background/15 to-background/25 backdrop-blur-xl">
+      <div className="relative z-10 min-h-screen bg-gradient-to-br from-background/20 via-background/10 to-background/20 backdrop-blur-xl">
         {/* Enhanced Glassmorphism Header */}
         <header className="bg-background/15 backdrop-blur-xl border-b border-white/20 shadow-lg">
           <div className="container mx-auto px-6 py-4">
@@ -254,33 +285,43 @@ const Settings = () => {
                         </Button>
                       </div>
                       
-                      <div className="flex gap-2">
-                        <div className="relative flex-1">
-                          <Input
-                            id={provider.id}
-                            type={showKeys[provider.id] ? "text" : "password"}
-                            placeholder={provider.placeholder}
-                            value={apiKeys[provider.id as keyof ApiKeys]}
-                            onChange={(e) => handleKeyChange(provider.id as keyof ApiKeys, e.target.value)}
-                            disabled={provider.disabled}
-                            className="pr-10 bg-background/30 backdrop-blur-sm border-white/20"
-                          />
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="sm"
-                            className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                            onClick={() => toggleShowKey(provider.id)}
-                            disabled={provider.disabled}
-                          >
-                            {showKeys[provider.id] ? (
-                              <EyeOff className="h-4 w-4" />
-                            ) : (
-                              <Eye className="h-4 w-4" />
-                            )}
-                          </Button>
-                        </div>
-                      </div>
+                       {!provider.disabled && (
+                         <ApiKeyInput
+                           provider={provider.id}
+                           value={apiKeys[provider.id as keyof ApiKeys]}
+                           onChange={(value) => handleKeyChange(provider.id as keyof ApiKeys, value)}
+                           isVisible={showKeys[provider.id] || false}
+                           onToggleVisibility={() => toggleShowKey(provider.id)}
+                           placeholder={provider.placeholder}
+                           helpUrl={provider.website}
+                           selectedModel={selectedModels[provider.id as keyof SelectedModels]}
+                           onModelChange={(model) => handleModelChange(provider.id as keyof SelectedModels, model)}
+                         />
+                       )}
+                       
+                       {provider.disabled && (
+                         <div className="flex gap-2">
+                           <div className="relative flex-1">
+                             <Input
+                               id={provider.id}
+                               type={showKeys[provider.id] ? "text" : "password"}
+                               placeholder={provider.placeholder}
+                               value={apiKeys[provider.id as keyof ApiKeys]}
+                               onChange={(e) => handleKeyChange(provider.id as keyof ApiKeys, e.target.value)}
+                               disabled={provider.disabled}
+                               className="pr-10 bg-background/30 backdrop-blur-sm border-white/20 opacity-50"
+                             />
+                           </div>
+                           <Button
+                             variant="outline"
+                             disabled
+                             className="bg-white/10 backdrop-blur-sm border border-white/20 opacity-50"
+                           >
+                             <Globe className="w-4 h-4 mr-2" />
+                             Coming Soon
+                           </Button>
+                         </div>
+                       )}
                       
                       {provider.id !== providers[providers.length - 1].id && <Separator className="bg-white/20" />}
                     </div>
