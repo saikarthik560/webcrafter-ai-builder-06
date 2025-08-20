@@ -50,10 +50,14 @@ const CreateProject = () => {
         return;
       }
 
-      // Add API keys to the config
+      // Add selected models to the config
+      const savedModels = localStorage.getItem('webcrafter_selected_models');
+      const selectedModels = savedModels ? JSON.parse(savedModels) : {};
+
       const configWithKeys = {
         ...config,
-        apiKeys
+        apiKeys,
+        selectedModels
       };
 
       // Generate project with AI
@@ -87,8 +91,8 @@ const CreateProject = () => {
         description: `Your AI-generated project "${config.title}" is ready!`,
       });
 
-      // Navigate to the builder
-      navigate(`/builder/${project.id}`);
+      // Navigate to the builder with live generation view
+      navigate(`/builder/${project.id}?generating=true`);
 
     } catch (error) {
       console.error('Error creating project:', error);
@@ -104,7 +108,7 @@ const CreateProject = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Enhanced Spline Background - More Visible */}
+      {/* Spline Background - 60% Visible */}
       <div className="fixed inset-0 z-0">
         <iframe 
           src='https://my.spline.design/orbittriangle-3S6GOic3EjNFF8CrhyvHizYQ/' 
@@ -115,9 +119,8 @@ const CreateProject = () => {
         />
       </div>
       
-      {/* Enhanced Glassmorphism Container */}
-      <div className="relative z-10 min-h-screen bg-gradient-to-br from-background/30 via-background/20 to-background/30">
-        <div className="bg-gradient-to-br from-white/5 via-transparent to-white/5 min-h-screen">
+      <div className="relative z-10 min-h-screen bg-background/40">
+        <div className="bg-background/20 min-h-screen">
           <ProjectCreationWizard 
             onCreateProject={handleCreateProject}
             isCreating={isCreating}

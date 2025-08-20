@@ -7,39 +7,36 @@ import CTASection from "@/components/sections/CTASection";
 const Index = () => {
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Spline Background for Home Page - More Visible */}
+      {/* Spline Background - 60% Visible */}
       <div className="fixed inset-0 z-0">
         <iframe 
           src='https://my.spline.design/claritystream-HO2NJbsg4PBsB0dCXzScasfo/' 
           frameBorder='0' 
           width='100%' 
           height='100%'
-          className="pointer-events-none scale-110"
+          className="pointer-events-none scale-110 opacity-60"
         />
       </div>
       
-      {/* Enhanced Glassmorphism Content */}
-      <div className="relative z-10 min-h-screen bg-gradient-to-br from-background/30 via-background/20 to-background/30">
-        {/* Glassmorphism Header */}
-        <div className="bg-background/20 backdrop-blur-md border-b border-white/10">
+      {/* Content with 60% Background Visibility */}
+      <div className="relative z-10 min-h-screen bg-background/40">
+        <div className="bg-background/50">
           <Header />
         </div>
         
-        {/* Main Content with Enhanced Glassmorphism */}
-        <main className="bg-gradient-to-br from-background/20 via-background/10 to-background/20 backdrop-blur-lg">
-          <div className="bg-gradient-to-br from-white/5 via-transparent to-white/5">
+        <main className="bg-background/20">
+          <div className="bg-background/10">
             <HeroSection />
           </div>
-          <div className="bg-background/10 backdrop-blur-sm">
+          <div className="bg-background/15">
             <FeaturesSection />
           </div>
-          <div className="bg-gradient-to-br from-white/5 via-transparent to-white/5">
+          <div className="bg-background/10">
             <CTASection />
           </div>
         </main>
         
-        {/* Glassmorphism Footer */}
-        <div className="bg-background/20 backdrop-blur-md border-t border-white/10">
+        <div className="bg-background/50">
           <Footer />
         </div>
       </div>

@@ -237,9 +237,9 @@ Generated on: ${new Date().toLocaleDateString()}
         />
       </div>
       
-      <div className="relative z-10 h-screen bg-gradient-to-br from-background/30 via-background/20 to-background/30 flex flex-col">
-      {/* Enhanced Glassmorphism Header - 50/50 Visibility */}
-      <header className="bg-white/10 backdrop-blur-xl border-b border-white/30 shadow-2xl px-4 py-2">
+      <div className="relative z-10 h-screen bg-background/60 flex flex-col">
+      {/* Header */}
+      <header className="bg-background/80 border-b border-border px-4 py-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <Button 
@@ -303,8 +303,8 @@ Generated on: ${new Date().toLocaleDateString()}
         </div>
       </header>
 
-      {/* Enhanced Glassmorphism Main Content - 50/50 Visibility */}
-      <div className="flex-1 overflow-hidden bg-gradient-to-br from-white/15 via-white/10 to-white/15 backdrop-blur-xl">
+      {/* Main Content */}
+      <div className="flex-1 overflow-hidden bg-background/20">
         <ResizablePanelGroup direction="horizontal">
           {/* AI Chat Panel */}
           {showChat && (
