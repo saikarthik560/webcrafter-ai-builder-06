@@ -274,10 +274,16 @@ Generated on: ${new Date().toLocaleDateString()}
             <Button 
               variant="outline" 
               size="sm"
-              onClick={() => setShowCodeArea(!showCodeArea)}
+              onClick={() => {
+                setShowCodeArea(!showCodeArea);
+                // Auto-refresh preview when toggling
+                setTimeout(() => {
+                  setActiveTab(prev => prev);
+                }, 100);
+              }}
             >
               <Code2 className="w-4 h-4 mr-2" />
-              {showCodeArea ? "Hide" : "Show"} Code
+              {showCodeArea ? "Preview" : "Code"}
             </Button>
             <PublishButton
               projectContent={project.content}

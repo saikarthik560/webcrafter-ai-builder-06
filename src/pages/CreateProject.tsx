@@ -9,6 +9,16 @@ const CreateProject = () => {
   const { toast } = useToast();
   const [isCreating, setIsCreating] = useState(false);
 
+  // Navigate to builder with real-time generation
+  const navigateToBuilder = (projectId: string) => {
+    navigate(`/builder/${projectId}`, { 
+      state: { 
+        isNewProject: true,
+        showGenerationProgress: true 
+      }
+    });
+  };
+
   const handleCreateProject = async (config: ProjectConfig) => {
     setIsCreating(true);
     
@@ -92,7 +102,7 @@ const CreateProject = () => {
       });
 
       // Navigate to the builder with live generation view
-      navigate(`/builder/${project.id}?generating=true`);
+      navigateToBuilder(project.id);
 
     } catch (error) {
       console.error('Error creating project:', error);

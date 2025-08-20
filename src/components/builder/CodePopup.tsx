@@ -9,10 +9,12 @@ interface CodePopupProps {
     name: string;
     cssCode: string;
   };
+  onClose: () => void;
 }
 
-const CodePopup = ({ animation }: CodePopupProps) => {
+const CodePopup = ({ animation, onClose }: CodePopupProps) => {
   const [copied, setCopied] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const copyToClipboard = async () => {
     try {
@@ -24,14 +26,13 @@ const CodePopup = ({ animation }: CodePopupProps) => {
     }
   };
 
+  const handleClose = () => {
+    setIsOpen(false);
+    onClose();
+  };
+
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline" size="sm" className="bg-background/20 border-primary/30 hover:bg-primary/20">
-          <Code className="w-4 h-4 mr-2" />
-          View Code
-        </Button>
-      </DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="max-w-2xl bg-background/90 backdrop-blur-xl border border-border">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">

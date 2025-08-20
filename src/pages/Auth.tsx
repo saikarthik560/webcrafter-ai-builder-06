@@ -24,8 +24,8 @@ const Auth = () => {
     // Check if user is already logged in
     const checkUser = async () => {
       try {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (user && mounted) {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.user && mounted) {
           navigate("/dashboard");
           return;
         }
@@ -40,12 +40,11 @@ const Auth = () => {
 
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (mounted) {
-        if (event === 'SIGNED_IN' && session?.user) {
+      if (mounted && event === 'SIGNED_IN' && session?.user) {
+        // Small delay to ensure navigation works properly
+        setTimeout(() => {
           navigate("/dashboard");
-        } else if (event === 'SIGNED_OUT') {
-          setIsChecking(false);
-        }
+        }, 100);
       }
     });
 
